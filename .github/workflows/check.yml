@@ -1,9 +1,9 @@
-name: Monitor Crypto Sentiment v2
+name: Monitor Crypto Sentiment
 
 on:
   schedule:
-    # roda a cada 30 minutos
-    - cron: "*/30 * * * *"
+    - cron: "0 * * * *"      # roda no minuto 0
+    - cron: "30 * * * *"     # roda no minuto 30
   workflow_dispatch:
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         if [[ -n "$(git status --porcelain)" ]]; then
-          git add last_hash_bias.txt
+          git.add last_hash_bias.txt
           git.add last_hash_sentiment.txt
           git.commit -m "Update hash files [skip ci]"
           git.push
