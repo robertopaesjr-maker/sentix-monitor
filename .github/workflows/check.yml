@@ -1,4 +1,4 @@
-name: Monitor Crypto Sentiment
+name: Monitor Crypto Sentiment v2
 
 on:
   schedule:
