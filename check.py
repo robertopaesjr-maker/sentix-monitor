@@ -1,22 +1,15 @@
 import requests
+import re
 import os
+import hashlib
 import smtplib
 from email.mime.text import MIMEText
-import httpx
 
-URL = "https://www.crypto-sentiment.com/bitcoin-strategic-bias"
-LAST_FILE = "last_content.txt"
+PAGE_URL = "https://www.crypto-sentiment.com/bitcoin-strategic-bias"
+LAST_HASH_FILE = "last_hash.txt"
 
-def send_telegram(message):
-    token = os.getenv("TELEGRAM_TOKEN")
-    chat_id = os.getenv("TELEGRAM_CHAT_ID")
-    if not (token and chat_id):
-        return
-    httpx.get(
-        f"https://api.telegram.org/bot{token}/sendMessage",
-        params={"chat_id": chat_id, "text": message},
-        timeout=30
-    )
+def sha256_bytes(content: bytes) -> str:
+    return hashlib.sha256(content).hexdigest()
 
 def send_email(subject, body):
     host = os.getenv("EMAIL_HOST")
@@ -39,21 +32,40 @@ def send_email(subject, body):
     server.sendmail(user, [to], msg.as_string())
     server.quit()
 
+def extract_image_url(html: str) -> str:
+    match = re.search(r'sntb_bitcoins-[a-zA-Z0-9]+\\.png', html)
+    if not match:
+        raise Exception("Imagem do gráfico não encontrada na página.")
+    filename = match.group(0)
+    return "https://www.crypto-sentiment.com/templates/yootheme/cache/d7/" + filename
+
 def main():
-    html = requests.get(URL, timeout=60).text.strip()
+    # Baixa o HTML da página
+    html = requests.get(PAGE_URL, timeout=60).text
 
-    old = ""
-    if os.path.exists(LAST_FILE):
-        with open(LAST_FILE, "r", encoding="utf-8") as f:
-            old = f.read().strip()
+    # Extrai o URL exato da imagem
+    image_url = extract_image_url(html)
 
-    if old and html != old:
-        msg = "A página Sentix Strategic Bias foi atualizada:\n" + URL
-        send_telegram(msg)
-        send_email("Sentix atualizado", msg)
+    # Baixa a imagem real
+    img_bytes = requests.get(image_url, timeout=60).content
 
-    with open(LAST_FILE, "w", encoding="utf-8") as f:
-        f.write(html)
+    # Calcula hash
+    new_hash = sha256_bytes(img_bytes)
+
+    # Carrega hash anterior
+    old_hash = ""
+    if os.path.exists(LAST_HASH_FILE):
+        with open(LAST_HASH_FILE, "r") as f:
+            old_hash = f.read().strip()
+
+    # Compara
+    if old_hash and new_hash != old_hash:
+        msg = f"O gráfico Sentix Bitcoin foi atualizado.\nNova imagem: {image_url}"
+        send_email("Sentix atualizado (gráfico)", msg)
+
+    # Salva hash
+    with open(LAST_HASH_FILE, "w") as f:
+        f.write(new_hash)
 
 if __name__ == "__main__":
     main()
