@@ -2,38 +2,37 @@ name: Monitor Crypto Sentiment
 
 on:
   schedule:
-    - cron: "0 * * * *"
-  workflow_dispatch:
+    - cron: "0 * * * *"   # roda automaticamente todo começo de hora
+  workflow_dispatch:       # permite rodar manualmente também
 
 jobs:
   check-page:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
     - name: Install Python deps
-      run: pip install requests httpx
+      run: pip install requests
 
     - name: Run monitor
       env:
-        TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
         EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
         EMAIL_USER: ${{ secrets.EMAIL_USER }}
         EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-        EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        EMAIL_TO:   ${{ secrets.EMAIL_TO }}
       run: python3 check.py
 
-    - name: Commit state if changed
+    - name: Commit updated hash if changed
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         if [[ -n "$(git status --porcelain)" ]]; then
-          git add last_content.txt
-          git commit -m "Update last_content.txt [skip ci]"
+          git add last_hash.txt
+          git commit -m "Update last_hash.txt [skip ci]"
           git push
         fi
