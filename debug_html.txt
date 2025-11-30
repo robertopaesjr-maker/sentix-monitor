@@ -1,1 +1,525 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    
+<head>
+<script type="text/javascript">  (function(){    function blockCookies(disableCookies, disableLocal, disableSession){    if(disableCookies == 1){    if(!document.__defineGetter__){    Object.defineProperty(document, 'cookie',{    get: function(){ return ''; },    set: function(){ return true;}    });    }else{    var oldSetter = document.__lookupSetter__('cookie');    if(oldSetter) {    Object.defineProperty(document, 'cookie', {    get: function(){ return ''; },    set: function(v){ if(v.match(/reDimCookieHint\=/) || v.match(/f77b26eb89d0359e07fcd1c892ed5a77\=/)) {    oldSetter.call(document, v);    }    return true;    }    });    }    }    var cookies = document.cookie.split(';');    for (var i = 0; i < cookies.length; i++) {    var cookie = cookies[i];    var pos = cookie.indexOf('=');    var name = '';    if(pos > -1){    name = cookie.substr(0, pos);    }else{    name = cookie;    } if(name.match(/reDimCookieHint/)) {    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT';    }    }    }    if(disableLocal == 1){    window.localStorage.clear();    window.localStorage.__proto__ = Object.create(window.Storage.prototype);    window.localStorage.__proto__.setItem = function(){ return undefined; };    }    if(disableSession == 1){    window.sessionStorage.clear();    window.sessionStorage.__proto__ = Object.create(window.Storage.prototype);    window.sessionStorage.__proto__.setItem = function(){ return undefined; };    }    }    blockCookies(1,1,1);    }()); </script>
 
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/images/cryptosentiment_icon.png" sizes="any">
+                <link rel="apple-touch-icon" href="/templates/yootheme/packages/theme-joomla/assets/images/apple-touch-icon.png">
+        <meta charset="utf-8">
+	<meta name="rights" content="© 2025 sentix GmbH">
+	<meta name="author" content="Manfred">
+	<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+	<meta name="description" content="The Bitcoin strategic bias index measures the perception of value - also named as basic trust - of investors in the crypto currency Bitcoin">
+	<meta name="generator" content="Joomla! - Open Source Content Management">
+	<title>Bitcoin strategic bias index - Crypto Currencies Sentiment</title>
+	<link href="https://www.crypto-sentiment.com/search?format=opensearch" rel="search" title="OpenSearch Crypto Currencies Sentiment" type="application/opensearchdescription+xml">
+	<link href="/media/vendor/joomla-custom-elements/css/joomla-alert.min.css?0.4.1" rel="stylesheet">
+	<link href="/plugins/system/cookiehint/css/redimstyle.css?03fecb" rel="stylesheet">
+	<link href="/media/system/css/joomla-fontawesome.min.css?4.5.32" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link href="/templates/yootheme/css/theme.13.css?1762237430" rel="stylesheet">
+	<link href="/media/plg_system_jcepro/site/css/content.min.css?86aa0286b6232c4a5b58f892ce080277" rel="stylesheet">
+	<link href="/media/plg_system_jcemediabox/css/jcemediabox.min.css?7d30aa8b30a57b85d658fcd54426884a" rel="stylesheet">
+	<style>#redim-cookiehint-modal {position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 99998; display: flex; justify-content : center; align-items : center;}</style>
+	<script type="application/json" class="joomla-script-options new">{"joomla.jtext":{"RLTA_BUTTON_SCROLL_LEFT":"Scroll buttons to the left","RLTA_BUTTON_SCROLL_RIGHT":"Scroll buttons to the right","MDL_MODALTXT_CLOSE":"close","MDL_MODALTXT_PREVIOUS":"previous","MDL_MODALTXT_NEXT":"next","JLIB_JS_AJAX_ERROR_OTHER":"An error has occurred while fetching the JSON data: HTTP %s status code.","JLIB_JS_AJAX_ERROR_PARSE":"A parse error has occurred while processing the following JSON data:<br><code style=\"color:inherit;white-space:pre-wrap;padding:0;margin:0;border:0;background:inherit;\">%s<\/code>","ERROR":"Error","MESSAGE":"Message","NOTICE":"Notice","WARNING":"Warning","JCLOSE":"Close","JOK":"OK","JOPEN":"Open"},"finder-search":{"url":"\/component\/finder?task=suggestions.suggest&amp;format=json&amp;tmpl=component"},"system.paths":{"root":"","rootFull":"https:\/\/www.crypto-sentiment.com\/","base":"","baseFull":"https:\/\/www.crypto-sentiment.com\/"},"csrf.token":"bb9c615b9ef47235123a75314920a9e9"}</script>
+	<script src="/media/system/js/core.min.js?d0ec829aa99e9c12c5a76f73e2c6b6d6"></script>
+	<script src="/media/vendor/jquery/js/jquery.min.js?3.7.1"></script>
+	<script src="/media/legacy/js/jquery-noconflict.min.js?d0ec829aa99e9c12c5a76f73e2c6b6d6"></script>
+	<script src="/media/vendor/awesomplete/js/awesomplete.min.js?1.1.7" defer></script>
+	<script src="/media/com_finder/js/finder.min.js?d0ec829aa99e9c12c5a76f73e2c6b6d6" type="module"></script>
+	<script src="/media/system/js/messages.min.js?d0ec829aa99e9c12c5a76f73e2c6b6d6" type="module"></script>
+	<script src="/templates/yootheme/vendor/assets/uikit/dist/js/uikit.min.js?4.5.32"></script>
+	<script src="/templates/yootheme/vendor/assets/uikit/dist/js/uikit-icons-framerate.min.js?4.5.32"></script>
+	<script src="/templates/yootheme/js/theme.js?4.5.32"></script>
+	<script src="/media/plg_system_jcemediabox/js/jcemediabox.min.js?7d30aa8b30a57b85d658fcd54426884a"></script>
+	<script>rltaSettings = {"switchToAccordions":true,"switchBreakPoint":576,"buttonScrollSpeed":5,"addHashToUrls":true,"rememberActive":false,"wrapButtons":false,"switchBasedOn":"window","animations":"fade,slide","animationSpeed":7,"mode":"click","slideshowInterval":5000,"slideshowRestart":"1","slideshowRestartTimeout":10000,"scroll":"adaptive","scrollOnLinks":"adaptive","scrollOnUrls":"adaptive","scrollOffsetTop":20,"scrollOffsetBottom":20,"useWideScreenScrollOffsets":false,"scrollOffsetBreakPoint":576,"scrollOffsetTopWide":20,"scrollOffsetBottomWide":20}</script>
+	<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.crypto-sentiment.com/#/schema/Organization/base","name":"Crypto Currencies Sentiment","url":"https://www.crypto-sentiment.com/"},{"@type":"WebSite","@id":"https://www.crypto-sentiment.com/#/schema/WebSite/base","url":"https://www.crypto-sentiment.com/","name":"Crypto Currencies Sentiment","publisher":{"@id":"https://www.crypto-sentiment.com/#/schema/Organization/base"},"potentialAction":{"@type":"SearchAction","target":"https://www.crypto-sentiment.com/search?q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://www.crypto-sentiment.com/#/schema/WebPage/base","url":"https://www.crypto-sentiment.com/bitcoin-strategic-bias","name":"Bitcoin strategic bias index - Crypto Currencies Sentiment","description":"The Bitcoin strategic bias index measures the perception of value - also named as basic trust - of investors in the crypto currency Bitcoin","isPartOf":{"@id":"https://www.crypto-sentiment.com/#/schema/WebSite/base"},"about":{"@id":"https://www.crypto-sentiment.com/#/schema/Organization/base"},"inLanguage":"en-GB"},{"@type":"Article","@id":"https://www.crypto-sentiment.com/#/schema/com_content/article/3","name":"Bitcoin strategic bias index","headline":"Bitcoin strategic bias index","inLanguage":"en-GB","author":{"@type":"Person","name":"Manfred"},"articleSection":"data","dateCreated":"2023-03-15T10:15:23+00:00","interactionStatistic":{"@type":"InteractionCounter","userInteractionCount":72544},"isPartOf":{"@id":"https://www.crypto-sentiment.com/#/schema/WebPage/base"}}]}</script>
+	<script>(function() {  if (typeof gtag !== 'undefined') {       gtag('consent', 'denied', {         'ad_storage': 'denied',         'ad_user_data': 'denied',         'ad_personalization': 'denied',         'functionality_storage': 'denied',         'personalization_storage': 'denied',         'security_storage': 'denied',         'analytics_storage': 'denied'       });     } })();</script>
+	<script>window.yootheme ||= {}; var $theme = yootheme.theme = {"i18n":{"close":{"label":"Close"},"totop":{"label":"Back to top"},"marker":{"label":"Open"},"navbarToggleIcon":{"label":"Open Menu"},"paginationPrevious":{"label":"Previous page"},"paginationNext":{"label":"Next Page"},"searchIcon":{"toggle":"Open Search","submit":"Submit Search"},"slider":{"next":"Next slide","previous":"Previous slide","slideX":"Slide %s","slideLabel":"%s of %s"},"slideshow":{"next":"Next slide","previous":"Previous slide","slideX":"Slide %s","slideLabel":"%s of %s"},"lightboxPanel":{"next":"Next slide","previous":"Previous slide","slideLabel":"%s of %s","close":"Close"}}};</script>
+	<script>jQuery(document).ready(function(){WfMediabox.init({"base":"\/","theme":"standard","width":"","height":"","lightbox":0,"shadowbox":0,"icons":1,"overlay":1,"overlay_opacity":0,"overlay_color":"","transition_speed":500,"close":2,"labels":{"close":"Close","next":"Next","previous":"Previous","cancel":"Cancel","numbers":"{{numbers}}","numbers_count":"{{current}} of {{total}}","download":"Download"},"swipe":true,"expand_on_click":true});});</script>
+	<!-- Start: Google Structured Data -->
+<script type="application/ld+json" data-type="gsd">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.crypto-sentiment.com"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Strategic bias on Bitcoins",
+            "item": "https://www.crypto-sentiment.com/bitcoin-strategic-bias"
+        }
+    ]
+}
+</script>
+<script type="application/ld+json" data-type="gsd">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.crypto-sentiment.com/bitcoin-strategic-bias"
+    },
+    "headline": "Bitcoin strategic bias index",
+    "description": "Bitcoin strategic bias index The sentix Strategic Bias, investors six-month expectations, reflects the strategic view of market participants as well as their underlying convictions and perceptions of value for a given market. As this indicator represents investors’ general willingness to buy or sell it should not be interpreted as a contrarian signal. Rather it is usually leading the market by several weeks. And as the indicator mainly reflects investors’ longer-term convictions and perceptions of value it is an indicator coined by the “wisdom of crowds”, it bundles the knowledge floating around in a market of various players. sentix compendium",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://www.crypto-sentiment.com/"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Cryptocurrency Sentiment",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.crypto-sentiment.com/images/cryptosentiment_logo_web.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "sentix GmbH",
+        "url": "https://www.crypto-sentiment.com/bitcoin-strategic-bias"
+    },
+    "datePublished": "2023-03-15T11:15:23+01:00",
+    "dateCreated": "2023-03-15T11:15:23+01:00",
+    "dateModified": "2023-03-15T11:18:15+01:00"
+}
+</script>
+<!-- End: Google Structured Data -->
+<link rel="canonical" href="https://www.crypto-sentiment.com/bitcoin-strategic-bias" />
+</head>
+
+    <body class="">
+
+        <div class="uk-hidden-visually uk-notification uk-notification-top-left uk-width-auto">
+            <div class="uk-notification-message">
+                <a href="#tm-main" class="uk-link-reset">Skip to main content</a>
+            </div>
+        </div>
+
+                <div class="tm-page-container uk-clearfix">
+
+            
+            
+        
+        
+        <div class="tm-page uk-margin-auto">
+
+                        
+
+
+<header class="tm-header-mobile uk-hidden@m">
+
+
+    
+        <div class="uk-navbar-container">
+
+            <div class="uk-container uk-container-expand">
+                <nav class="uk-navbar" uk-navbar="{&quot;align&quot;:&quot;left&quot;,&quot;container&quot;:&quot;.tm-header-mobile&quot;,&quot;boundary&quot;:&quot;.tm-header-mobile .uk-navbar-container&quot;}">
+
+                                        <div class="uk-navbar-left ">
+
+                                                    <a href="https://www.crypto-sentiment.com/" aria-label="Back to home" class="uk-logo uk-navbar-item">
+    <img alt loading="eager" src="/templates/yootheme/cache/d9/cryptosentiment_logo_web-d9fc380d.png" srcset="/templates/yootheme/cache/d9/cryptosentiment_logo_web-d9fc380d.png 292w" sizes="(min-width: 292px) 292px" width="292" height="65"></a>
+                        
+                        
+                        
+                    </div>
+                    
+                    
+                                        <div class="uk-navbar-right">
+
+                                                    
+                        
+                                                    <a uk-toggle href="#tm-dialog-mobile" class="uk-navbar-toggle">
+
+        
+        <div uk-navbar-toggle-icon></div>
+
+        
+    </a>
+                        
+                    </div>
+                    
+                </nav>
+            </div>
+
+        </div>
+
+    
+
+
+
+        <div id="tm-dialog-mobile" uk-offcanvas="container: true; overlay: true" mode="slide" flip>
+        <div class="uk-offcanvas-bar uk-flex uk-flex-column">
+
+                        <button class="uk-offcanvas-close uk-close-large" type="button" uk-close uk-toggle="cls: uk-close-large; mode: media; media: @s"></button>
+            
+                        <div class="uk-margin-auto-bottom">
+                
+<div class="uk-panel" id="module-menu-dialog-mobile">
+
+    
+    
+<ul class="uk-nav uk-nav-default">
+    
+	<li class="item-101"><a href="/">Home</a></li>
+	<li class="item-121"><a href="/the-idea">The idea</a></li>
+	<li class="item-122"><a href="/about-us">About us</a></li>
+	<li class="item-331"><a href="/newsletter-archive?layout=table">Newsletter Archive</a></li></ul>
+
+</div>
+
+            </div>
+            
+            
+        </div>
+    </div>
+    
+    
+    
+
+</header>
+
+
+<div class="tm-toolbar tm-toolbar-default uk-visible@m">
+    <div class="uk-container uk-flex uk-flex-middle">
+
+                <div>
+            <div class="uk-grid-medium uk-child-width-auto uk-flex-middle" uk-grid="margin: uk-margin-small-top">
+
+                                <div>
+<div class="uk-panel" id="module-tm-4">
+
+    
+    <ul class="uk-grid uk-flex-inline uk-flex-middle uk-flex-nowrap uk-grid-small">                    <li><a href="https://twitter.com/sentixsurvey" class="uk-preserve-width uk-icon-link" rel="noreferrer"><span uk-icon="icon: twitter;"></span></a></li>
+                    <li><a href="https://www.youtube.com/@sentix" class="uk-preserve-width uk-icon-link" rel="noreferrer"><span uk-icon="icon: youtube;"></span></a></li>
+            </ul>
+</div>
+</div>
+                
+                
+            </div>
+        </div>
+        
+                <div class="uk-margin-auto-left">
+            <div class="uk-grid-medium uk-child-width-auto uk-flex-middle" uk-grid="margin: uk-margin-small-top">
+                <div>
+<div class="uk-panel" id="module-141">
+
+    
+    
+<div class="uk-margin-remove-last-child custom" ><p>Contact: <a href="mailto:support@sentix.de">support@sentix.de</a></p></div>
+
+</div>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<header class="tm-header uk-visible@m">
+
+
+
+        <div uk-sticky media="@m" cls-active="uk-navbar-sticky" sel-target=".uk-navbar-container">
+    
+        <div class="uk-navbar-container">
+
+            <div class="uk-container">
+                <nav class="uk-navbar" uk-navbar="{&quot;align&quot;:&quot;left&quot;,&quot;container&quot;:&quot;.tm-header &gt; [uk-sticky]&quot;,&quot;boundary&quot;:&quot;.tm-header .uk-navbar-container&quot;}">
+
+                                        <div class="uk-navbar-left ">
+
+                                                    <a href="https://www.crypto-sentiment.com/" aria-label="Back to home" class="uk-logo uk-navbar-item">
+    <img alt loading="eager" src="/templates/yootheme/cache/d9/cryptosentiment_logo_web-d9fc380d.png" srcset="/templates/yootheme/cache/d9/cryptosentiment_logo_web-d9fc380d.png 292w" sizes="(min-width: 292px) 292px" width="292" height="65"></a>
+                        
+                        
+                        
+                    </div>
+                    
+                    
+                                        <div class="uk-navbar-right">
+
+                                                    
+<ul class="uk-navbar-nav">
+    
+	<li class="item-101"><a href="/">Home</a></li>
+	<li class="item-121"><a href="/the-idea">The idea</a></li>
+	<li class="item-122"><a href="/about-us">About us</a></li>
+	<li class="item-331"><a href="/newsletter-archive?layout=table">Newsletter Archive</a></li></ul>
+
+<div class="uk-navbar-item" id="module-tm-3">
+
+    
+    
+
+    <form id="search-tm-3" action="/search" method="get" role="search" class="uk-search js-finder-searchform uk-search-navbar"><span uk-search-icon></span><input name="q" class="js-finder-search-query uk-search-input" placeholder="Search" required aria-label="Search" type="search"></form>
+    
+
+</div>
+
+                        
+                                                    
+                        
+                    </div>
+                    
+                </nav>
+            </div>
+
+        </div>
+
+        </div>
+    
+
+
+
+
+
+
+
+</header>
+
+            
+            
+
+            <main id="tm-main" >
+
+                
+                <div id="system-message-container" aria-live="polite"></div>
+
+                <!-- Builder #page -->
+<div class="uk-section-default uk-section uk-section-small">
+    
+        
+        
+                <div class="uk-position-relative">        
+            
+                                <div class="uk-container">                
+                    <div class="uk-grid tm-grid-expand uk-grid-margin" uk-grid>
+<div class="uk-width-1-2@m">
+    
+        
+            
+            
+            
+                
+                    
+<div class="uk-margin">
+        <img src="/templates/yootheme/cache/d7/sntb_bitcoins-d7dd2d61.png" srcset="/templates/yootheme/cache/d7/sntb_bitcoins-d7dd2d61.png 710w" sizes="(min-width: 710px) 710px" width="710" height="376" class="el-image" alt="sentix Bitcoin sentiment index" loading="lazy">    
+    
+</div>
+                
+            
+        
+    
+</div>
+<div class="uk-width-1-2@m">
+    
+        
+            
+            
+            
+                
+                    
+<h1>        Bitcoin strategic bias index    </h1><div class="uk-panel uk-margin"><p>The sentix Strategic Bias, investors six-month expectations, reflects the strategic view of market participants as well as their underlying convictions and perceptions of value for a given market. As this indicator represents investors’ general willingness to buy or sell it should not be interpreted as a contrarian signal. Rather it is usually leading the market by several weeks. And as the indicator mainly reflects investors’ longer-term convictions and perceptions of value it is an indicator coined by the “wisdom of crowds”, it bundles the knowledge floating around in a market of various players.</p></div>
+<div class="uk-margin">
+    
+    
+        
+        
+<a class="el-content uk-button uk-button-primary uk-flex-inline uk-flex-center uk-flex-middle" href="https://www.sentix.de/index.php/en/item/sntb.html" target="_blank">
+        <span class="uk-margin-small-right" uk-icon="chevron-double-right"></span>    
+        sentix compendium    
+    
+</a>
+
+
+        
+    
+    
+</div>
+
+                
+            
+        
+    
+</div></div>
+                                </div>                
+            
+                    <div class="tm-section-title uk-position-top-left uk-position-medium uk-margin-remove-vertical uk-visible@xl">                <div class="tm-rotate-180">Bitcoin strategic bias index</div>
+            </div>        </div>
+        
+    
+</div>
+
+                
+            </main>
+
+            
+
+                        <footer>
+                <!-- Builder #footer -->
+<div class="uk-section-secondary uk-section uk-section-small">
+    
+        
+        
+        
+            
+                                <div class="uk-container">                
+                    <div class="uk-grid tm-grid-expand uk-grid-margin" uk-grid>
+<div class="uk-width-1-3@m">
+    
+        
+            
+            
+            
+                
+                    
+<div class="uk-panel">
+    
+    
+<div class="uk-margin-remove-last-child custom" ><h3 style="text-align: left;">sentix GmbH</h3>
+<p style="text-align: left;">Mainzer Straße 4b<br />65550 Limburg / Lahn<br />Germany</p>
+<p style="text-align: left;">Tel. +49 (6431) 59786-04<br /><a href="mailto:support@sentix.de">support@sentix.de</a></p>
+<p style="text-align: left;">© 2018-2025 sentix GmbH</p></div>
+
+</div>
+                
+            
+        
+    
+</div>
+<div class="uk-width-1-3@m">
+    
+        
+            
+            
+            
+                
+                    
+<h2 class="uk-h3">        More sentiment charts    </h2>
+<div>
+    
+    
+        
+        <ul class="uk-margin-remove-bottom uk-nav uk-nav-default">                                <li class="el-item ">
+<a class="el-link" href="/bitcoin-sentiment">
+    
+        <span class="el-image" uk-icon="icon: chevron-double-right;"></span>
+                    Bitcoin Sentiment        
+    
+</a></li>
+                                            <li class="el-item ">
+<a class="el-link" href="/bitcoin-time-differential-index">
+    
+        <span class="el-image" uk-icon="icon: chevron-double-right;"></span>
+                    Bitcoin Time differential index        
+    
+</a></li>
+                                            <li class="el-item ">
+<a class="el-link" href="/bitcoin-strategic-bias">
+    
+        <span class="el-image" uk-icon="icon: chevron-double-right;"></span>
+                    Strategic bias on Bitcoins        
+    
+</a></li>
+                                            <li class="el-item ">
+<a class="el-link" href="/bitcoin-overconfidence-index">
+    
+        <span class="el-image" uk-icon="icon: chevron-double-right;"></span>
+                    Bitcoin Overconfidence Index        
+    
+</a></li>
+                                            <li class="el-item ">
+<a class="el-link" href="/sentiment-on-the-asset-class-of-crypto-currencies">
+    
+        <span class="el-image" uk-icon="icon: chevron-double-right;"></span>
+                    Sentiment on the asset class of crypto currencies        
+    
+</a></li>
+                            </ul>
+        
+    
+    
+</div>
+                
+            
+        
+    
+</div>
+<div class="uk-width-1-3@m">
+    
+        
+            
+            
+            
+                
+                    
+<h2 class="uk-h3">        Important information    </h2>
+<div>
+    
+    
+        
+        <ul class="uk-margin-remove-bottom uk-nav uk-nav-default">                                <li class="el-item ">
+<a class="el-link" href="https://www.sentix.de/index.php/en/Terms/imprint.html">
+    
+        <span class="el-image" uk-icon="icon: chevron-double-right;"></span>
+                    Imprint        
+    
+</a></li>
+                                            <li class="el-item ">
+<a class="el-link" href="https://www.sentix.de/index.php/en/Terms/privacy-policy.html">
+    
+        <span class="el-image" uk-icon="icon: chevron-double-right;"></span>
+                    Privacy policy        
+    
+</a></li>
+                                            <li class="el-item ">
+<a class="el-link" href="https://www.sentix.de/index.php?option=com_acymailing&amp;view=user&amp;Itemid=409&amp;lang=en">
+    
+        <span class="el-image" uk-icon="icon: chevron-double-right;"></span>
+                    Get the newsletter        
+    
+</a></li>
+                                            <li class="el-item ">
+<a class="el-link" href="https://www.crypto-sentiment.com/?cookiehint=set">
+    
+        <span class="el-image" uk-icon="icon: cog;"></span>
+                    Cookie preferences        
+    
+</a></li>
+                            </ul>
+        
+    
+    
+</div>
+                
+            
+        
+    
+</div></div>
+                                </div>                
+            
+        
+    
+</div>            </footer>
+            
+        </div>
+
+                </div>
+        
+        
+
+    
+<script type="text/javascript">   function cookiehintsubmitnoc(obj) {     if (confirm("A refusal will affect the functions of the website. Do you really want to decline?")) {       document.cookie = 'reDimCookieHint=-1; expires=0; path=/';       cookiehintfadeOut(document.getElementById('redim-cookiehint-modal'));       return true;     } else {       return false;     }   } </script> <div id="redim-cookiehint-modal">   <div id="redim-cookiehint">     <div class="cookiehead">       <span class="headline">We use cookies</span>     </div>     <div class="cookiecontent">   We would like to use cookies so that we can optimise and personalise our websites for you. Cookies are also needed to check the entry of registrations for the newsletter (captcha integration). Do you revocably agree to the use of cookies on our websites? You can revoke or re-give your decision at any time via the link at the bottom of the website.    </div>     <div class="cookiebuttons">       <a id="cookiehintsubmit" onclick="return cookiehintsubmit(this);" href="https://www.crypto-sentiment.com/bitcoin-strategic-bias?rCH=2"         class="btn">Ok</a>           <a id="cookiehintsubmitno" onclick="return cookiehintsubmitnoc(this);" href="https://www.crypto-sentiment.com/bitcoin-strategic-bias?rCH=-2"           class="btn">Decline</a>          <div class="text-center" id="cookiehintinfo">              <a target="_self" href="https://www.sentix.de/index.php/en/Terms/privacy-policy.html">More information</a>                  |                  <a target="_self" href="https://www.sentix.de/index.php/en/Terms/imprint.html">Imprint</a>            </div>      </div>     <div class="clr"></div>   </div> </div>     <script type="text/javascript">        document.addEventListener("DOMContentLoaded", function(event) {         if (!navigator.cookieEnabled){           document.getElementById('redim-cookiehint-modal').remove();         }       });        function cookiehintfadeOut(el) {         el.style.opacity = 1;         (function fade() {           if ((el.style.opacity -= .1) < 0) {             el.style.display = "none";           } else {             requestAnimationFrame(fade);           }         })();       }         function cookiehintsubmit(obj) {         document.cookie = 'reDimCookieHint=1; expires=Mon, 30 Nov 2026 23:59:59 GMT;57; path=/';         cookiehintfadeOut(document.getElementById('redim-cookiehint-modal'));         return true;       }        function cookiehintsubmitno(obj) {         document.cookie = 'reDimCookieHint=-1; expires=0; path=/';         cookiehintfadeOut(document.getElementById('redim-cookiehint-modal'));         return true;       }     </script>  
+</body>
+</html>
