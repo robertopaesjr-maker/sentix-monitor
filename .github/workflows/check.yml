@@ -1,8 +1,8 @@
 name: Monitor Crypto Sentiment
 
 on:
-  schedule:
-    - cron: "0 * * * *"   # roda automaticamente todo começo de hora
+schedule:
+  - cron: "*/10 * * * *"
   workflow_dispatch:       # permite rodar manualmente também
 
 jobs:
