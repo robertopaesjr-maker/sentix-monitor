@@ -3,10 +3,11 @@ import re
 import os
 import hashlib
 import smtplib
-from email.mime.text import MIMEText
+from email.mime_text import MIMEText
 
 PAGE_URL = "https://www.crypto-sentiment.com/bitcoin-strategic-bias"
 LAST_HASH_FILE = "last_hash.txt"
+BASE_URL = "https://www.crypto-sentiment.com"
 
 def sha256_bytes(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
@@ -32,38 +33,56 @@ def send_email(subject, body):
     server.sendmail(user, [to], msg.as_string())
     server.quit()
 
+def make_absolute_url(src: str) -> str:
+    # já é absoluta
+    if src.startswith("http://") or src.startswith("https://"):
+        return src
+    # protocolo relativo: //dominio/...
+    if src.startswith("//"):
+        return "https:" + src
+    # caminho absoluto no site
+    if src.startswith("/"):
+        return BASE_URL + src
+    # caminho relativo
+    return BASE_URL + "/" + src
+
 def extract_image_url(html: str) -> str:
-    match = re.search(r'sntb_bitcoins-[a-zA-Z0-9]+\\.png', html)
-    if not match:
-        raise Exception("Imagem do gráfico não encontrada na página.")
-    filename = match.group(0)
-    return "https://www.crypto-sentiment.com/templates/yootheme/cache/d7/" + filename
+    # procura qualquer src="...sntb_bitcoins...png..."
+    m = re.search(r'src="([^"]*sntb_bitcoins[^"]*?\\.png[^"]*)"', html)
+    if not m:
+        raise Exception("Imagem do gráfico (sntb_bitcoins*.png) não encontrada na página.")
+    src = m.group(1)
+    return make_absolute_url(src)
 
 def main():
-    # Baixa o HTML da página
-    html = requests.get(PAGE_URL, timeout=60).text
+    # baixa HTML da página
+    resp = requests.get(PAGE_URL, timeout=60)
+    resp.raise_for_status()
+    html = resp.text
 
-    # Extrai o URL exato da imagem
+    # extrai URL exata da imagem do gráfico
     image_url = extract_image_url(html)
 
-    # Baixa a imagem real
-    img_bytes = requests.get(image_url, timeout=60).content
+    # baixa imagem
+    img_resp = requests.get(image_url, timeout=60)
+    img_resp.raise_for_status()
+    img_bytes = img_resp.content
 
-    # Calcula hash
+    # hash da imagem
     new_hash = sha256_bytes(img_bytes)
 
-    # Carrega hash anterior
+    # hash anterior
     old_hash = ""
     if os.path.exists(LAST_HASH_FILE):
         with open(LAST_HASH_FILE, "r") as f:
             old_hash = f.read().strip()
 
-    # Compara
+    # compara
     if old_hash and new_hash != old_hash:
         msg = f"O gráfico Sentix Bitcoin foi atualizado.\nNova imagem: {image_url}"
         send_email("Sentix atualizado (gráfico)", msg)
 
-    # Salva hash
+    # salva hash atual
     with open(LAST_HASH_FILE, "w") as f:
         f.write(new_hash)
 
