@@ -25,15 +25,16 @@ jobs:
         EMAIL_TO:   ${{ secrets.EMAIL_TO }}
       run: python3 check.py
 
-    - name: Commit updated hash if changed
+    - name: Commit updated hashes if changed
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         if [[ -n "$(git status --porcelain)" ]]; then
-          git add last_hash.txt
-          git commit -m "Update last_hash.txt [skip ci]"
+          git add last_hash_bias.txt
+          git add last_hash_sentiment.txt
+          git commit -m "Update hash files [skip ci]"
           git push
         fi
 
