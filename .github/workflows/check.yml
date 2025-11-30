@@ -2,8 +2,7 @@ name: Monitor Crypto Sentiment
 
 on:
   schedule:
-    - cron: "0 * * * *"      # roda no minuto 0
-    - cron: "30 * * * *"     # roda no minuto 30
+    - cron: "0 * * * *"   # a cada 1 hora
   workflow_dispatch:
 
 jobs:
