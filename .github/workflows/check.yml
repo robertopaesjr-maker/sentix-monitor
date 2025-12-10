@@ -25,22 +25,21 @@ jobs:
         EMAIL_TO:   ${{ secrets.EMAIL_TO }}
       run: python3 check.py
 
-- name: Commit updated hashes if changed
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  run: |
-    git config user.name "github-actions[bot]"
-    git config user.email "github-actions[bot]@users.noreply.github.com"
+    - name: Commit updated hashes if changed
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
 
-    # Só tenta commitar se houver arquivos modificados
-    if [[ -n "$(git status --porcelain)" ]]; then
-      # Adiciona os arquivos de hash ao staging
-      git add last_hash_bias.txt last_hash_sentiment.txt
+        # Só tenta commitar se houver arquivos modificados
+        if [[ -n "$(git status --porcelain)" ]]; then
+          # Adiciona os arquivos de hash ao staging
+          git add last_hash_bias.txt last_hash_sentiment.txt
 
-      # Cria o commit
-      git commit -m "Update hash files [skip ci]"
+          # Cria o commit
+          git commit -m "Update hash files [skip ci]"
 
-      # Envia o commit para o repositório remoto
-      git push
-    fi
-
+          # Envia o commit para o repositório remoto
+          git push
+        fi
