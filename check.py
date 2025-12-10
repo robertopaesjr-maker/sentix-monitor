@@ -36,7 +36,7 @@ def send_email(subject, body):
     to = os.getenv("EMAIL_TO")
 
     if not (host and user and password and to):
-        return
+        raise RuntimeError("Variáveis de email não configuradas.")
 
     msg = MIMEText(body)
     msg["Subject"] = subject
@@ -61,38 +61,41 @@ def make_absolute_url(src):
 def extract_image_url(html, pattern):
     m = re.search(r'<img[^>]+src="([^"]*' + pattern + r')"', html)
     if not m:
-        raise Exception(f"Imagem do gráfico ({pattern}) não encontrada no HTML.")
+        raise RuntimeError(f"Imagem do gráfico ({pattern}) não encontrada.")
     return make_absolute_url(m.group(1))
 
 def monitor_chart(chart):
-    # Baixa HTML da página
     html = requests.get(chart["page"], timeout=60).text
-
-    # Extrai URL da imagem
     image_url = extract_image_url(html, chart["pattern"])
-
-    # Baixa imagem
     img = requests.get(image_url, timeout=60).content
 
     new_hash = sha256_bytes(img)
 
-    # Lê hash anterior
     old_hash = ""
     if os.path.exists(chart["hash_file"]):
         with open(chart["hash_file"], "r") as f:
             old_hash = f.read().strip()
 
-    # Se mudou, envia alerta
+    # Caso padrão: atualizar hash
+    update_hash = True
+
+    # Se houve mudança real, envia email
     if old_hash and new_hash != old_hash:
         msg = (
             f"O gráfico '{chart['name']}' foi atualizado.\n\n"
             f"URL da nova imagem:\n{image_url}"
         )
-        send_email(f"Sentix atualizado: {chart['name']}", msg)
+        try:
+            send_email(f"Sentix atualizado: {chart['name']}", msg)
+        except Exception as e:
+            # Se o email falhar, NÃO atualiza o hash
+            update_hash = False
+            print(f"Erro ao enviar email: {e}")
 
-    # Salva hash atual
-    with open(chart["hash_file"], "w") as f:
-        f.write(new_hash)
+    # Atualiza o hash apenas se for seguro
+    if update_hash:
+        with open(chart["hash_file"], "w") as f:
+            f.write(new_hash)
 
 def main():
     for chart in CHARTS:
